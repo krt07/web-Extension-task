@@ -8,6 +8,7 @@
     "build": "vite build",
     "start": "next start",
     "lint": "eslint"
+    
   },
   "dependencies": {
     "next": "16.1.6",
