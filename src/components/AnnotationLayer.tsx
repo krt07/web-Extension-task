@@ -8,26 +8,20 @@ import { debounce } from "../utils/debounce";
 export const AnnotationLayer: React.FC = () => {
   const [annotations, setAnnotations] = useState<Annotation[]>([]);
   const [isCommentMode, setIsCommentMode] = useState(false);
-
-  // Load saved annotations
   useEffect(() => {
     const stored = localStorage.getItem("annotations");
     if (stored) setAnnotations(JSON.parse(stored));
   }, []);
-
-  // Save annotations
   useEffect(() => {
     localStorage.setItem("annotations", JSON.stringify(annotations));
   }, [annotations]);
 
-  // Handle element click
   useEffect(() => {
     if (!isCommentMode) return;
 
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
 
-      // Ignore extension UI clicks
       if (target.closest("#web-annotator-root")) return;
 
       e.preventDefault();
@@ -54,7 +48,6 @@ export const AnnotationLayer: React.FC = () => {
     };
   }, [isCommentMode]);
 
-  // Update positions on scroll/resize
   const updatePositions = debounce(() => {
     setAnnotations(prev =>
       prev.map(note => {
